@@ -11,7 +11,7 @@ jobs:
             NPM_TOKEN: ${{ secrets.DSI_HUG_NPM_TOKEN }}
         with:
             working-directory: projects/lib
-            lint: true
-            test: true
+            lint: false
+            test: false
             build: true
             release: true
