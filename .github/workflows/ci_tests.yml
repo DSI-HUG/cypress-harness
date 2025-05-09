@@ -46,6 +46,10 @@ jobs:
         shell: bash # use bash so that sleep is recognized even on Windows
         run: sleep 5 && curl http://localhost:4200 -I
 
+      - name: Install Cypress
+        working-directory: projects/tests-e2e
+        run: npm run install
+
       - name: Run tests
         working-directory: projects/tests-e2e
-        run: npm run start --
+        run: npm run start

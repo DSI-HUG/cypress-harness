@@ -14,11 +14,13 @@ export default defineConfig({
     reporter: 'junit',
 
     reporterOptions: {
-        mochaFile: 'node_modules/jenkins-ci/e2e/e2e-test-result-[hash].xml',
+        mochaFile: './results/e2e-test-result-[hash].xml',
         toConsole: true
     },
 
     chromeWebSecurity: false,
+    downloadsFolder: './downloads',
+    fixturesFolder: './fixtures',
     screenshotsFolder: './screenshots',
     videosFolder: './videos',
 
