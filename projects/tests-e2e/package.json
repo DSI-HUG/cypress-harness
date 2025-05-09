@@ -1,0 +1,16 @@
+{
+    "name": "tests-e2e",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "start": "cypress run --config baseUrl=http://localhost:4200 --headless --browser chrome",
+        "e2e:run": "cypress run --headless --browser electron",
+        "cy:open": "cypress open"
+    },
+    "devDependencies": {
+        "cypress": "13.14.2",
+        "cypress-pipe": "~2.0.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "name": "@hug/cypress-harness",
+    "version": "1.0.0",
+    "description": "Cypress support for Angular component test harnesses.",
+    "homepage": "https://github.com/DSI_HUG/cypress-harness",
+    "license": "MIT",
+    "type": "module",
+    "module": "index.js",
+    "typings": "index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./index.js",
+            "types": "./index.d.ts",
+            "default": "./index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DSI_HUG/cypress-harness.git"
+    },
+    "keywords": [
+        "angular",
+        "cdk",
+        "components",
+        "test",
+        "testing",
+        "harness",
+        "harnesses",
+        "test-harnesses",
+        "cypress"
+    ],
+    "scripts": {
+        "build": "node ./build.mjs",
+        "release": "npm publish ../../dist --workspaces=false --access=public"
+    },
+    "engines": {
+        "node": "^16.14.0 || >=18.10.0"
+    },
+    "peerDependencies": {
+        "@angular/cdk": ">= 13 < 20",
+        "cypress": ">= 13",
+        "cypress-pipe": ">= 2"
+    },
+    "dependencies": {
+        "@colors/colors": "^1.6.0"
+    },
+    "devDependencies": {
+        "@angular/cdk": "^19.2.11",
+        "cypress": "13.14.2",
+        "cypress-pipe": "~2.0.0",
+        "cpy": "^11.1.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

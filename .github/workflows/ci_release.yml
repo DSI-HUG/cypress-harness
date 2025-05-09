@@ -1,0 +1,19 @@
+name: Release library
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  ci_tests:
+    uses: ./.github/workflows/ci_tests.yml
+
+  ci_release:
+    needs: ci_tests
+    uses: badisi/actions/.github/workflows/action.yml@v2
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    with:
+      working-directory: projects/library
+      build: true
+      release: true

@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "rootDir": "src",
+        "outDir": "../../dist/",
+        "module": "ESNext",
+        "target": "es2022",
+        "moduleResolution": "node",
+        "lib": [
+            "es2020",
+            "dom"
+        ],
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "inlineSourceMap": false,
+        "listEmittedFiles": false,
+        "listFiles": false,
+        "noFallthroughCasesInSwitch": true,
+        "pretty": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "traceResolution": false,
+        "importHelpers": true,
+        "strictPropertyInitialization": true,
+        "noUnusedLocals": true,
+        "types": [
+            "node",
+            "cypress"
+        ]
+    },
+    "compileOnSave": false,
+    "include": [
+        "src/**/*.ts"
+    ]
+}
