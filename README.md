@@ -65,17 +65,14 @@ describe('Angular Material Harness', () => {
         await browser.url('http://localhost:4200');
     });
 
-    it('MatDatePicker', async () => {
-        const datepicker = await getHarness(MatDatepickerInputHarness.with({ selector: '#demo-datepicker-input' }));
+    it('MatDatePicker - setValue()', async () => {
+        cy.get('#demo-datepicker-input').should('be.visible');
 
-        await datepicker.setValue('9/27/1954');
-        expect(await datepicker.getValue()).withContext('Date should be 9/27/1954').toBe('9/27/1954');
+        getDatePickerInputHarness('#demo-datepicker-input').invoke('setValue', '9/27/1954');
 
-        await datepicker.openCalendar();
-        const calendar = await datepicker.getCalendar();
-        await calendar.next();
-        await calendar.selectCell({ text: '20' });
-        expect(await datepicker.getValue()).withContext('Date should be 10/20/1954').toBe('10/20/1954');
+        getDatePickerInputHarness('#demo-datepicker-input').then(async datepicker => {
+            expect(await datepicker.getValue()).to.equal('9/27/1954');
+        });
     });
 });
 ```
