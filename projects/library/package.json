@@ -1,6 +1,6 @@
 {
     "name": "@hug/cypress-harness",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Cypress support for Angular component test harnesses.",
     "homepage": "https://github.com/DSI-HUG/cypress-harness",
     "license": "MIT",
@@ -8,6 +8,16 @@
     "module": "index.js",
     "typings": "index.d.ts",
     "exports": {
+        "./internals": {
+            "import": "./internals.js",
+            "types": "./internals.d.ts",
+            "default": "./internals.js"
+        },
+        "./cypress-harness-environment": {
+            "import": "./cypress-harness-environment.js",
+            "types": "./cypress-harness-environment.d.ts",
+            "default": "./cypress-harness-environment.js"
+        },
         ".": {
             "import": "./index.js",
             "types": "./index.d.ts",
