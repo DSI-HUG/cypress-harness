@@ -47,12 +47,42 @@ yarn add @DSI-HUG/cypress-harness --dev
 
 __Methods__
 
-- `createHarnessEnvironment(rootElement)` - gets a HarnessLoader instance from a given element (defaults to body)
-- `getHarness(harnessType, element)` - searches for an harness instance from a given ComponentHarness class and element
-- `getHarness(harnessType)` - searches for an harness instance from a given ComponentHarness class
 - `getHarness(query)` - searches for an harness instance from a given HarnessPredicate
 - `getAllHarnesses(query)` - acts like getHarness, but returns an array of harness instances
-- `waitForAngular()` - waits for Angular to finish bootstrapping
+- `getInputHarness(filter)` - searches for an harness instance from a MatInput qith the specified filter
+- `getInputHarness(selector)` - searches for an harness instance from a MatInput qith the specified selector
+- `getAutocompleteHarness(filter)` - searches for an harness instance from a MatAutocomplete qith the specified filter
+- `getAutocompleteHarness(selector)` - searches for an harness instance from a MatAutocomplete qith the specified selector
+- `getListOptionHarness(filter)` - searches for an harness instance from a MatListOption qith the specified filter
+- `getListOptionHarness(selector)` - searches for an harness instance from a MatListOption qith the specified selector
+- `getButtonHarness(filter)` - searches for an harness instance from a MatButton qith the specified filter
+- `getButtonHarness(selector)` - searches for an harness instance from a MatButton qith the specified selector
+- `getButtonToggleGroupHarness(filter)` - searches for an harness instance from a MatButtonToggle qith the specified filter
+- `getButtonToggleGroupHarness(selector)` - searches for an harness instance from a MatButtonToggle qith the specified selector
+- `getNavListHarness(filter)` - searches for an harness instance from a MatNavList qith the specified filter
+- `getNavListHarness(selector)` - searches for an harness instance from a MatNavList qith the specified selector
+- `getNavListItemHarness(filter)` - searches for an harness instance from a MatNavListItem qith the specified filter
+- `getNavListItemHarness(selector)` - searches for an harness instance from a MatNavListItem qith the specified selector
+- `getListItemHarness(filter)` - searches for an harness instance from a MatListItem qith the specified filter
+- `getListItemHarness(selector)` - searches for an harness instance from a MatListItem qith the specified selector
+- `getCheckBoxHarness(filter)` - searches for an harness instance from a MatCheckBox qith the specified filter
+- `getCheckBoxHarness(selector)` - searches for an harness instance from a MatCheckBox qith the specified selector
+- `getRadioButtonHarness(filter)` - searches for an harness instance from a MatRadioButton qith the specified filter
+- `getRadioButtonHarness(selector)` - searches for an harness instance from a MatRadioButton qith the specified selector
+- `getRadioGroupHarness(filter)` - searches for an harness instance from a MatRadioGroup qith the specified filter
+- `getRadioGroupHarness(selector)` - searches for an harness instance from a MatRadioGroup qith the specified selector
+- `getMenuHarness(filter)` - searches for an harness instance from a MatMenu qith the specified filter
+- `getMenuHarness(selector)` - searches for an harness instance from a MatMenu qith the specified selector
+- `getMenuItemHarness(filter)` - searches for an harness instance from a MatMenuItem qith the specified filter
+- `getMenuItemHarness(selector)` - searches for an harness instance from a MatMenuItem qith the specified selector
+- `getDatePickerInputHarness(filter)` - searches for an harness instance from a MatDatePickerInput qith the specified filter
+- `getDatePickerInputHarness(selector)` - searches for an harness instance from a MatDatePickerInput qith the specified selector
+- `getSlideToggleHarness(filter)` - searches for an harness instance from a MatSlideToggle qith the specified filter
+- `getSlideToggleHarness(selector)` - searches for an harness instance from a MatSlideToggle qith the specified selector
+- `getSelectHarness(filter)` - searches for an harness instance from a MatSelect qith the specified filter
+- `getSelectHarness(selector)` - searches for an harness instance from a MatSelect qith the specified selector
+- `getOptionHarness(filter)` - searches for an harness instance from a MatOption qith the specified filter
+- `getOptionHarness(selector)` - searches for an harness instance from a MatOption qith the specified selector
 
 __Example__
 
@@ -103,4 +133,4 @@ Please read and follow the [Code of Conduct][codeofconduct] and help me keep thi
 [developer]: https://github.com/DSI-HUG/cypress-harness/blob/main/DEVELOPER.md
 [contributing]: https://github.com/DSI-HUG/cypress-harness/blob/main/CONTRIBUTING.md
 [codeofconduct]: https://github.com/DSI-HUG/cypress-harness/blob/main/CODE_OF_CONDUCT.md
-[examples]: https://github.com/DSI-HUG/cypress-harness/blob/main/projects/tests-e2e/harness.e2e.ts
+[examples]: https://github.com/DSI-HUG/cypress-harness/blob/main/projects/tests-e2e/harness.e2e.cy.ts
