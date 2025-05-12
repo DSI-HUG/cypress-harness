@@ -41,3 +41,19 @@ export class CypressHarnessEnvironment extends HarnessEnvironment<Element> {
         return Array.from(this.rawRootElement.querySelectorAll(selector));
     }
 }
+
+export type ChainableHarness<HARNESS> = Cypress.Chainable<HARNESS> & {
+    /* For each field or method... is this a method? */
+    [K in keyof HARNESS]: HARNESS[K] extends (...args: any) => any
+        ? /* It's a method so let's change the return type. */
+        (
+            ...args: Parameters<HARNESS[K]>
+        ) => /* Convert Promise<T> to Chainable<T> and anything else U to Chainable<U>. */
+        ChainableHarness<
+        ReturnType<HARNESS[K]> extends Promise<infer RESULT>
+            ? RESULT
+            : HARNESS[K]
+        >
+        : /* It's something else. */
+        HARNESS[K];
+};
