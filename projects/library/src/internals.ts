@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentHarness } from '@angular/cdk/testing';
 
-import { ChainableHarness, CypressHarnessEnvironment } from './cypress-harness-environment.js';
+import { ChainableHarness, CypressHarnessEnvironment } from './cypress-harness-environment';
 
 /*
  * Adds harness methods to chainer.

@@ -13,8 +13,8 @@ import { MatRadioButtonHarness, MatRadioGroupHarness, type RadioButtonHarnessFil
 import { MatSelectHarness, type SelectHarnessFilters } from '@angular/material/select/testing';
 import { MatSlideToggleHarness, type SlideToggleHarnessFilters } from '@angular/material/slide-toggle/testing';
 
-import { addHarnessMethodsToChainer, createRootEnvironment, getDocumentRoot } from './internals.js';
-import { ChainableHarness } from 'cypress-harness-environment.js';
+import { addHarnessMethodsToChainer, createRootEnvironment, getDocumentRoot } from './internals';
+import { ChainableHarness } from './cypress-harness-environment';
 
 interface Chainer extends Cypress.Chainable<JQuery> {
     pipe: (fn: (root: JQuery) => Promise<ComponentHarness>) => ChainableHarness<ComponentHarness>;
@@ -243,4 +243,4 @@ export const getOptionHarness = (filter?: OptionHarnessFilters | string): Chaina
     return getHarness(harnessQuery);
 };
 
-export * from './cypress-harness-environment.js';
+export * from './cypress-harness-environment';
