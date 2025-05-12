@@ -1,5 +1,5 @@
 
-import type { ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
+import { HarnessEnvironment, TestElement, type ComponentHarness, type HarnessQuery } from '@angular/cdk/testing';
 import { type AutocompleteHarnessFilters, MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
 import { type ButtonHarnessFilters, MatButtonHarness } from '@angular/material/button/testing';
 import { type ButtonToggleGroupHarnessFilters, MatButtonToggleGroupHarness } from '@angular/material/button-toggle/testing';
@@ -12,9 +12,8 @@ import { MatMenuHarness, MatMenuItemHarness, type MenuHarnessFilters, type MenuI
 import { MatRadioButtonHarness, MatRadioGroupHarness, type RadioButtonHarnessFilters, type RadioGroupHarnessFilters } from '@angular/material/radio/testing';
 import { MatSelectHarness, type SelectHarnessFilters } from '@angular/material/select/testing';
 import { MatSlideToggleHarness, type SlideToggleHarnessFilters } from '@angular/material/slide-toggle/testing';
+import { UnitTestElement } from '@angular/cdk/testing/testbed';
 
-import { addHarnessMethodsToChainer, createRootEnvironment, getDocumentRoot } from './internals';
-import { ChainableHarness } from './cypress-harness-environment';
 
 interface Chainer extends Cypress.Chainable<JQuery> {
     pipe: (fn: (root: JQuery) => Promise<ComponentHarness>) => ChainableHarness<ComponentHarness>;
@@ -23,6 +22,101 @@ interface Chainer extends Cypress.Chainable<JQuery> {
 interface AllChainer extends Cypress.Chainable<JQuery> {
     pipe: (fn: (root: JQuery) => Promise<unknown>) => ChainableHarness<ReadonlyArray<ComponentHarness>>;
 }
+
+/*
+ * Adds harness methods to chainer.
+ *
+ * Given a harness with a `getValue()` method,
+ * users can call `getHarness().getValue()`
+ * instead of `getHarness().invoke('getValue')`
+ */
+const addHarnessMethodsToChainer = <HARNESS extends ComponentHarness>(chainableHarness: ChainableHarness<HARNESS>): ChainableHarness<HARNESS> => {
+    type Target = (...args: Array<unknown>) => ChainableHarness<ComponentHarness>;
+
+    const handler = {
+        get: (chainableTarget: ChainableHarness<HARNESS>, prop: string) => (...args: Array<unknown>): ChainableHarness<ComponentHarness> => {
+            /* Don't wrap cypress methods like `invoke`, `should` etc.... */
+            if (prop in chainableTarget) {
+                const pkey = prop as keyof ChainableHarness<HARNESS>;
+                return (chainableTarget[pkey] as Target)(...args);
+            }
+
+            const propkey = prop as keyof HARNESS;
+            const chainer = chainableTarget.then(target => {
+                const fct2 = target[propkey] as Target;
+                return fct2(...args);
+            }) as unknown as ChainableHarness<ComponentHarness>;
+
+            return addHarnessMethodsToChainer(chainer);
+        }
+    };
+
+    return new Proxy<ChainableHarness<HARNESS>>(chainableHarness, handler);
+};
+
+const getDocumentRoot = (): Cypress.Chainable<JQuery<Element>> => cy.root<Element>();
+
+const createRootEnvironment = ($documentRoot: JQuery<Element>): CypressHarnessEnvironment => {
+    const documentRoot = $documentRoot.get(0);
+    return new CypressHarnessEnvironment(documentRoot, { documentRoot });
+};
+
+export class CypressHarnessEnvironment extends HarnessEnvironment<Element> {
+    /**
+     * We need this to keep a reference to the document.
+     * This is different to `rawRootElement` which is the root element
+     * of the harness's environment.
+     * (The harness's environment is more of a context)
+     */
+    private _documentRoot: Element;
+
+    public constructor(rawRootElement: Element, { documentRoot }: { documentRoot: Element }) {
+        super(rawRootElement);
+        this._documentRoot = documentRoot;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/require-await
+    public async forceStabilize(): Promise<void> {
+        console.warn('`HarnessEnvironment#forceStabilize()` was called but it is a noop in Cypress environment.');
+    }
+
+    public waitForTasksOutsideAngular(): Promise<void> {
+        return Promise.reject(new Error('`HarnessEnvironment#waitForTasksOutsideAngular()` is not supported in Cypress environment.'));
+    }
+
+    protected getDocumentRoot(): Element {
+        return this._documentRoot;
+    }
+
+    protected createTestElement(element: Element): TestElement {
+        return new UnitTestElement(element, () => Promise.resolve());
+    }
+
+    protected createEnvironment(element: Element): HarnessEnvironment<Element> {
+        return new CypressHarnessEnvironment(element, { documentRoot: this._documentRoot });
+    }
+
+    // eslint-disable-next-line @typescript-eslint/require-await
+    protected async getAllRawElements(selector: string): Promise<Array<Element>> {
+        return Array.from(this.rawRootElement.querySelectorAll(selector));
+    }
+}
+
+export type ChainableHarness<HARNESS> = Cypress.Chainable<HARNESS> & {
+    /* For each field or method... is this a method? */
+    [K in keyof HARNESS]: HARNESS[K] extends (...args: any) => any
+        ? /* It's a method so let's change the return type. */
+        (
+            ...args: Parameters<HARNESS[K]>
+        ) => /* Convert Promise<T> to Chainable<T> and anything else U to Chainable<U>. */
+        ChainableHarness<
+        ReturnType<HARNESS[K]> extends Promise<infer RESULT>
+            ? RESULT
+            : HARNESS[K]
+        >
+        : /* It's something else. */
+        HARNESS[K];
+};
 
 export const getHarness = <HARNESS extends ComponentHarness>(harnessQuery: HarnessQuery<HARNESS>): ChainableHarness<HARNESS> => {
     /* Create a local variable so `pipe` can log name. */
@@ -242,5 +336,3 @@ export const getOptionHarness = (filter?: OptionHarnessFilters | string): Chaina
     const harnessQuery = MatOptionHarness.with(options);
     return getHarness(harnessQuery);
 };
-
-export * from './cypress-harness-environment';
