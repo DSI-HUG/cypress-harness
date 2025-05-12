@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentHarness } from '@angular/cdk/testing';
 
-import { CypressHarnessEnvironment } from './cypress-harness-environment';
+import { CypressHarnessEnvironment } from './cypress-harness-environment.js';
 
 export type ChainableHarness<HARNESS> = Cypress.Chainable<HARNESS> & {
     /* For each field or method... is this a method? */
