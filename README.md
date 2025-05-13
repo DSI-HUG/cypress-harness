@@ -1,5 +1,5 @@
 <h1 align="center">
-    @DSI-HUG/cypress-harness
+    @hug/cypress-harness
 </h1>
 
 <p align="center">
@@ -7,12 +7,12 @@
 </p>
 
 <p align="center">
-    <a href="https://www.npmjs.com/package/@DSI-HUG/cypress-harness">
-        <img src="https://img.shields.io/npm/v/@DSI-HUG/cypress-harness.svg?color=blue&logo=npm" alt="npm version" /></a>
-    <a href="https://npmcharts.com/compare/@DSI-HUG/cypress-harness?minimal=true">
-        <img src="https://img.shields.io/npm/dw/@DSI-HUG/cypress-harness.svg?color=7986CB&logo=npm" alt="npm donwloads" /></a>
+    <a href="https://www.npmjs.com/package/@hug/cypress-harness">
+        <img src="https://img.shields.io/npm/v/@hug/cypress-harness.svg?color=blue&logo=npm" alt="npm version" /></a>
+    <a href="https://npmcharts.com/compare/@hug/cypress-harness?minimal=true">
+        <img src="https://img.shields.io/npm/dw/@hug/cypress-harness.svg?color=7986CB&logo=npm" alt="npm donwloads" /></a>
     <a href="https://github.com/DSI-HUG/cypress-harness/blob/main/LICENSE">
-        <img src="https://img.shields.io/npm/l/@DSI-HUG/cypress-harness.svg?color=ff69b4" alt="license" /></a>
+        <img src="https://img.shields.io/npm/l/@hug/cypress-harness.svg?color=ff69b4" alt="license" /></a>
 </p>
 
 <p align="center">
@@ -35,11 +35,11 @@
 ## Installation
 
 ```sh
-npm install @DSI-HUG/cypress-harness --save-dev
+npm install @hug/cypress-harness --save-dev
 ```
 
 ```sh
-yarn add @DSI-HUG/cypress-harness --dev
+yarn add @hug/cypress-harness --dev
 ```
 
 
@@ -88,7 +88,7 @@ __Example__
 
 ```ts
 import { MatDatepickerInputHarness } from '@angular/material/datepicker/testing';
-import { getHarness } from '@DSI-HUG/cypress-harness';
+import { getHarness } from '@hug/cypress-harness';
 
 describe('Angular Material Harness', () => {
     beforeEach(async () => {
