@@ -1,6 +1,6 @@
 {
     "name": "@hug/cypress-harness",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Cypress support for Angular component test harnesses.",
     "homepage": "https://github.com/DSI-HUG/cypress-harness",
     "license": "MIT",
