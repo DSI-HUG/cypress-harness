@@ -12,8 +12,9 @@ import { MatMenuHarness, MatMenuItemHarness, type MenuHarnessFilters, type MenuI
 import { MatRadioButtonHarness, MatRadioGroupHarness, type RadioButtonHarnessFilters, type RadioGroupHarnessFilters } from '@angular/material/radio/testing';
 import { MatSelectHarness, type SelectHarnessFilters } from '@angular/material/select/testing';
 import { MatSlideToggleHarness, type SlideToggleHarnessFilters } from '@angular/material/slide-toggle/testing';
+import { type ChipHarnessFilters, MatChipHarness } from '@angular/material/chips/testing';
+import { MatTabGroupHarness,MatTabHarness,type TabGroupHarnessFilters,type TabHarnessFilters } from '@angular/material/tabs/testing';
 import { UnitTestElement } from '@angular/cdk/testing/testbed';
-
 
 interface Chainer extends Cypress.Chainable<JQuery> {
     pipe: (fn: (root: JQuery) => Promise<ComponentHarness>) => ChainableHarness<ComponentHarness>;
@@ -158,6 +159,28 @@ export const getInputHarness = (filter?: InputHarnessFilters | string): Chainabl
     return getHarness(harnessQuery);
 };
 
+export const getTabGroupHarness = (filter?: TabGroupHarnessFilters | string): ChainableHarness<MatTabGroupHarness> => {
+    const options = typeof filter === 'string' ? { selector: filter } : filter;
+    if (options?.selector) {
+        cy.get(options.selector).first().scrollIntoView();
+        cy.get(options.selector).first().should('be.visible');
+    }
+    cy.log(`getTabGroupHarness for selector ${options?.selector || MatTabGroupHarness.hostSelector}`);
+    const harnessQuery = MatTabGroupHarness.with(options);
+    return getHarness(harnessQuery);
+};
+
+export const getTabHarness = (filter?: TabHarnessFilters | string): ChainableHarness<MatTabHarness> => {
+    const options = typeof filter === 'string' ? { selector: filter } : filter;
+    if (options?.selector) {
+        cy.get(options.selector).first().scrollIntoView();
+        cy.get(options.selector).first().should('be.visible');
+    }
+    cy.log(`getTabHarness for selector ${options?.selector || MatTabHarness.hostSelector}`);
+    const harnessQuery = MatTabHarness.with(options);
+    return getHarness(harnessQuery);
+};
+
 export const getAutocompleteHarness = (filter?: AutocompleteHarnessFilters | string): ChainableHarness<MatAutocompleteHarness> => {
     const options = typeof filter === 'string' ? { selector: filter } : filter;
     if (options?.selector) {
@@ -199,6 +222,17 @@ export const getButtonToggleGroupHarness = (filter?: ButtonToggleGroupHarnessFil
     }
     cy.log(`getButtonToggleGroupHarness for selector ${options?.selector || MatButtonToggleGroupHarness.hostSelector}`);
     const harnessQuery = MatButtonToggleGroupHarness.with(options);
+    return getHarness(harnessQuery);
+};
+
+export const getChipHarness = (filter?: ChipHarnessFilters | string): ChainableHarness<MatChipHarness> => {
+    const options = typeof filter === 'string' ? { selector: filter } : filter;
+    if (options?.selector) {
+        cy.get(options.selector).first().scrollIntoView();
+        cy.get(options.selector).first().should('be.visible');
+    }
+    cy.log(`getChipHarness for selector ${options?.selector || MatChipHarness.hostSelector}`);
+    const harnessQuery = MatChipHarness.with(options);
     return getHarness(harnessQuery);
 };
 
